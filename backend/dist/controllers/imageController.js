@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadImage = void 0;
+exports.getImageLink = exports.uploadImage = void 0;
 const server_1 = require("../server");
 function uploadImage(req, res) {
     const { image } = req.body;
@@ -12,3 +12,13 @@ function uploadImage(req, res) {
     });
 }
 exports.uploadImage = uploadImage;
+function getImageLink(req, res) {
+    const { imageId } = req.params;
+    const q = "SELECT * FROM image WHERE id = ?";
+    server_1.db.query(q, [imageId], (err, data) => {
+        if (err)
+            res.status(400).json({ error: err.message });
+        res.status(200).json(data);
+    });
+}
+exports.getImageLink = getImageLink;
