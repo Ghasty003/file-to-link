@@ -3,6 +3,8 @@ import cors from "cors";
 import mysql from "mysql2";
 import dotenv from "dotenv";
 
+import imageRoute from "./routes/imageRoute";
+
 dotenv.config();
 
 export const db = mysql.createConnection({
@@ -22,6 +24,10 @@ class Server {
 
     public useMiddlewares() {
         this.app.use(cors());
+    }
+
+    public initializeRoutes() {
+        this.app.use("/api/image", imageRoute);
     }
 
     private listen() {
