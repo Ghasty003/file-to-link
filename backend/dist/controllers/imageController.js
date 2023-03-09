@@ -4,7 +4,7 @@ exports.uploadImage = void 0;
 const server_1 = require("../server");
 function uploadImage(req, res) {
     const { image } = req.body;
-    const q = "INSERT INTO images `image` VALUES (?)";
+    const q = "INSERT INTO images (`image`) VALUES (?)";
     server_1.db.query(q, [image], (err, data) => {
         if (err)
             res.status(400).json({ error: err.message });
