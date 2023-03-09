@@ -1,24 +1,67 @@
 <template>
   <div>
-    <form>
+    <form @submit.prevent="handleSubmit">
       <label for="file">
         <img src="../assets/addAvatar.png" alt="image">
         <p>Choose image</p>
       </label>
-      <input v-show="false" type="file" id="file" />
+      <input v-show="false" type="file" id="file" @change="handleChange" />
+      <button>upload</button>
     </form>
     <p>Image link</p>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'ImageForm',
-  props: {
-    msg: String,
-  },
+  setup() {
+    const image = ref<string>("");
+
+    const convertToBase64 = (file: Blob) => {
+      return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+
+        fileReader.onload = () => {
+          resolve(fileReader.result);
+        }
+
+        fileReader.onerror = (error) => {
+          reject(error);
+        }
+      })
+    }
+    
+    const handleChange = async (e: Event) => {
+      const event = (e.target) as HTMLInputElement;
+      if (!event.files) return;
+      const file = event.files[0];
+      const base64 = await convertToBase64(file) as string;
+      
+      image.value = base64;
+    }
+
+    const handleSubmit =  () => {
+      const req = new XMLHttpRequest();
+
+      req.open("POST", "http://localhost:8081/api/image");
+      req.setRequestHeader("Content-Type", "application/json");
+      req.send(JSON.stringify({image: image.value}));
+
+      req.addEventListener("load", () => {
+        console.log(JSON.parse(req.response));
+      })
+
+      // req.addEventListener()
+    }
+
+    return {
+      image, handleSubmit, handleChange
+    }
+  }
 });
 </script>
 
