@@ -24,6 +24,7 @@ class Server {
 
     public useMiddlewares() {
         this.app.use(cors());
+        this.app.use(express.json({ limit: "50mb" }))
     }
 
     public initializeRoutes() {

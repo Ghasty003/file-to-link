@@ -23,6 +23,7 @@ class Server {
     }
     useMiddlewares() {
         this.app.use((0, cors_1.default)());
+        this.app.use(express_1.default.json({ limit: "50mb" }));
     }
     initializeRoutes() {
         this.app.use("/api/image", imageRoute_1.default);
