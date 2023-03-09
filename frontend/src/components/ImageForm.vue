@@ -1,5 +1,10 @@
 <template>
-  <p>Form</p>
+  <form>
+    <label for="file">
+      choose
+    </label>
+    <input v-show="false" type="file" id="file" />
+  </form>
 </template>
 
 <script lang="ts">
