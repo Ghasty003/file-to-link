@@ -14,7 +14,7 @@ function uploadImage(req, res) {
 exports.uploadImage = uploadImage;
 function getImageLink(req, res) {
     const { imageId } = req.params;
-    const q = "SELECT * FROM image WHERE id = ?";
+    const q = "SELECT * FROM images WHERE id = ?";
     server_1.db.query(q, [imageId], (err, data) => {
         if (err)
             res.status(400).json({ error: err.message });
