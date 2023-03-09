@@ -1,7 +1,8 @@
 <template>
   <form>
     <label for="file">
-      choose
+      <img src="../assets/addAvatar.png" alt="image">
+      <p>Choose image</p>
     </label>
     <input v-show="false" type="file" id="file" />
   </form>
