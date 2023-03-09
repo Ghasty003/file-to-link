@@ -19,6 +19,7 @@ export default defineComponent({
   name: 'ImageForm',
   setup() {
     const image = ref<string>("");
+    const host = location.host;
 
     const convertToBase64 = (file: Blob) => {
       return new Promise((resolve, reject) => {
