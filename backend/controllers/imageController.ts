@@ -3,7 +3,7 @@ import { db } from "../server";
 
 export function uploadImage(req: Request, res: Response) {
     const { image } = req.body;
-    const q = "INSERT INTO test `image` VALUES (?)";
+    const q = "INSERT INTO images `image` VALUES (?)";
 
     db.query(q, [image], (err: Error, data: any) => {
         if (err) res.status(400).json({error: err.message});
