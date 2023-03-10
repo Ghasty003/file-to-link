@@ -17,7 +17,7 @@ export function uploadImage(req: Request, res: Response) {
 export function getImageLink(req: Request, res: Response) {
     const { imageId } = req.params;
 
-    const q = "SELECT * FROM images WHERE id = ?";
+    const q = "SELECT * FROM images WHERE url = ?";
 
     db.query(q, [imageId], (err: Error, data: unknown) => {
         if (err) res.status(400).json({error: err.message});
