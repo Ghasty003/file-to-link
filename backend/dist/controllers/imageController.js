@@ -19,6 +19,9 @@ function getImageLink(req, res) {
     server_1.db.query(q, [urlId], (err, data) => {
         if (err)
             res.status(400).json({ error: err.message });
+        if (!data.length) {
+            return res.status(404).json({ error: "data doesn't exist" });
+        }
         res.status(200).json(data);
     });
 }
