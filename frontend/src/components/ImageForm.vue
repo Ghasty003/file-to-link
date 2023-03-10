@@ -20,7 +20,7 @@ export default defineComponent({
   setup() {
     const link = ref("");
     const image = ref<string>("");
-    const host = location.href;
+    const host = location.href + "image/";
 
     const convertToBase64 = (file: Blob) => {
       return new Promise((resolve, reject) => {
