@@ -2,13 +2,11 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-  },
-  getters: {
+    isLinkValid: false
   },
   mutations: {
-  },
-  actions: {
-  },
-  modules: {
+    setLinkValidity(state, payload) {
+      state.isLinkValid = payload
+    }
   }
 })
