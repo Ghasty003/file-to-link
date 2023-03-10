@@ -41,7 +41,7 @@ export default defineComponent({
       if (!event.files) return;
       const file = event.files[0];
       const base64 = await convertToBase64(file) as string;
-      
+      console.log(file.name.trim())
       image.value = base64;
     }
 
@@ -50,7 +50,7 @@ export default defineComponent({
 
       req.open("POST", "http://localhost:8081/api/image");
       req.setRequestHeader("Content-Type", "application/json");
-      req.send(JSON.stringify({image: image.value}));
+      req.send(JSON.stringify({image: image.value, url: "random"}));
 
       req.addEventListener("load", () => {
         console.log(JSON.parse(req.response));
