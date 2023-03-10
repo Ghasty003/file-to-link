@@ -5,6 +5,6 @@ const router = Router();
 
 router.post("/", uploadImage);
 
-router.get("/:imageId", getImageLink);
+router.get("/:urlId", getImageLink);
 
 export default router;
