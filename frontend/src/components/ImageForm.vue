@@ -27,9 +27,6 @@ export default defineComponent({
     const host = location.href + "image/";
     const urlId = String(Math.floor(Math.random() * 10000000));
     const url = host + urlId;
-    const bol = false;
-
-    const router = useRouter();
 
     const convertToBase64 = (file: Blob) => {
       return new Promise((resolve, reject) => {
