@@ -2,7 +2,7 @@
   <div>
     <form @submit.prevent="handleSubmit">
       <label for="file">
-        <img src="../assets/addAvatar.png" alt="image">
+        <img src="../assets/addAvatar.png" />
         <p>Choose image</p>
       </label>
       <input v-show="false" type="file" id="file" @change="handleChange" />
@@ -55,12 +55,11 @@ export default defineComponent({
       req.send(JSON.stringify({ image: image.value, urlId }));
 
       req.addEventListener("load", () => {
-        console.log(JSON.parse(req.response));
         link.value = url;
       })
 
       req.addEventListener("progress", (e) => {
-        console.log((e.total / e.loaded) * 100)
+        // console.log((e.loaded / e.total) * 100)
       })
     }
 
