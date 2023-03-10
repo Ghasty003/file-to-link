@@ -14,6 +14,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'ImageForm',
@@ -23,6 +24,9 @@ export default defineComponent({
     const host = location.href + "image/";
     const urlId = String(Math.floor(Math.random() * 10000000));
     const url = host + urlId;
+    const bol = false;
+
+    const router = useRouter();
 
     const convertToBase64 = (file: Blob) => {
       return new Promise((resolve, reject) => {
@@ -56,7 +60,8 @@ export default defineComponent({
 
       req.addEventListener("load", () => {
         link.value = url;
-      })
+        // router.push(`/image/${urlId}`)
+      });
 
       req.addEventListener("progress", (e) => {
         // console.log((e.loaded / e.total) * 100)
