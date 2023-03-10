@@ -9,7 +9,7 @@ function uploadImage(req, res) {
     server_1.db.query(q, [values], (err, data) => {
         if (err)
             res.status(400).json({ error: err.message });
-        res.status(200).json(data);
+        res.status(200).json({ id: data.insertId });
     });
 }
 exports.uploadImage = uploadImage;
