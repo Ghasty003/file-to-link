@@ -8,7 +8,7 @@
       <input v-show="false" type="file" id="file" @change="handleChange" />
       <button>upload</button>
     </form>
-    <p>Image link</p>
+    <router-link to="/about">{{ link }}</router-link>
   </div>
 </template>
 
@@ -18,6 +18,7 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
   name: 'ImageForm',
   setup() {
+    const link = ref("");
     const image = ref<string>("");
     const host = location.href;
 
@@ -54,6 +55,7 @@ export default defineComponent({
 
       req.addEventListener("load", () => {
         console.log(JSON.parse(req.response));
+        link.value = url;
       })
 
       req.addEventListener("progress", (e) => {
@@ -62,7 +64,7 @@ export default defineComponent({
     }
 
     return {
-      image, handleSubmit, handleChange
+      image, handleSubmit, handleChange, link
     }
   }
 });
