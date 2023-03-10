@@ -19,8 +19,12 @@ export function getImageLink(req: Request, res: Response) {
 
     const q = "SELECT * FROM images WHERE url = ?";
 
-    db.query(q, [urlId], (err: Error, data: unknown) => {
+    db.query(q, [urlId], (err: Error, data: any) => {
         if (err) res.status(400).json({error: err.message});
+
+        if (!data.length) {
+            return res.status(404).json({error: "data doesn't exist"});
+        }
 
         res.status(200).json(data);
     })
