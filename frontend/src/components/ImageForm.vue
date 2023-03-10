@@ -8,7 +8,7 @@
       <input v-show="false" type="file" id="file" @change="handleChange" />
       <button>upload</button>
     </form>
-    <router-link :to="{name: 'about', params: {id: random} }">{{ link }}</router-link>
+    <router-link :to="{name: 'about', params: {id: urlId} }">{{ link }}</router-link>
   </div>
 </template>
 
@@ -21,8 +21,8 @@ export default defineComponent({
     const link = ref("");
     const image = ref<string>("");
     const host = location.href + "image/";
-    const random = String(Math.floor(Math.random() * 10000000));
-    const url = host + random;
+    const urlId = String(Math.floor(Math.random() * 10000000));
+    const url = host + urlId;
 
     const convertToBase64 = (file: Blob) => {
       return new Promise((resolve, reject) => {
@@ -52,7 +52,7 @@ export default defineComponent({
 
       req.open("POST", "http://localhost:8081/api/image");
       req.setRequestHeader("Content-Type", "application/json");
-      req.send(JSON.stringify({ image: image.value, url }));
+      req.send(JSON.stringify({ image: image.value, url: urlId }));
 
       req.addEventListener("load", () => {
         console.log(JSON.parse(req.response));
@@ -69,7 +69,7 @@ export default defineComponent({
       handleSubmit, 
       handleChange, 
       link, 
-      random
+      urlId
     }
   }
 });
