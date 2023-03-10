@@ -14,14 +14,10 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, onUpdated, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useStore } from "vuex";
 
 export default defineComponent({
   name: 'ImageForm',
   setup() {
-    const store = useStore();
-
     const link = ref("");
     const image = ref<string>("");
     const host = location.href + "image/";
@@ -56,15 +52,12 @@ export default defineComponent({
     const handleSubmit =  () => {
       const req = new XMLHttpRequest();
 
-      store.commit("setLinkValidity", true);
-
       req.open("POST", "http://localhost:8081/api/image");
       req.setRequestHeader("Content-Type", "application/json");
-      // req.send(JSON.stringify({ image: image.value, urlId }));
+      req.send(JSON.stringify({ image: image.value, urlId }));
 
       req.addEventListener("load", () => {
         link.value = url;
-        // router.push(`/image/${urlId}`)
       });
 
       req.addEventListener("progress", (e) => {
