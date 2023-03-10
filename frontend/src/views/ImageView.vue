@@ -2,6 +2,7 @@
   <div class="about">
     <h1>{{ url}}</h1>
     <img :src="imageUrl" alt="image">
+    <button @click="handleDownload">Download image</button>
   </div>
 </template>
 
@@ -25,12 +26,33 @@ export default defineComponent({
       })
 
       req.send();
-    })
+    });
+
+    const handleDownload = () => {
+      const aTag = Object.assign(document.createElement("a"), {
+      href: imageUrl.value, 
+      style: "display:none", 
+      download: "image"
+      });
+      
+      document.body.appendChild(aTag);
+      aTag.click();
+      document.body.removeChild(aTag);
+    }
 
     return {
       url,
-      imageUrl
+      imageUrl,
+      handleDownload
     }
   },
 })
 </script>
+
+
+<style scoped>
+img {
+  width: 100px;
+  height: 100px;
+}
+</style>
