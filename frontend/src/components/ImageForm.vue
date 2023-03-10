@@ -52,7 +52,7 @@ export default defineComponent({
 
       req.open("POST", "http://localhost:8081/api/image");
       req.setRequestHeader("Content-Type", "application/json");
-      req.send(JSON.stringify({ image: image.value, url: urlId }));
+      req.send(JSON.stringify({ image: image.value, urlId }));
 
       req.addEventListener("load", () => {
         console.log(JSON.parse(req.response));
