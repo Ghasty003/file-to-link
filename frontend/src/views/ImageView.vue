@@ -21,7 +21,6 @@ export default defineComponent({
       req.open("GET", `http://localhost:8081/api/image/${url}`);
 
       req.addEventListener("load", () => {
-        console.log(req.response)
         imageUrl.value = JSON.parse(req.response)[0].image
       })
 
@@ -34,7 +33,7 @@ export default defineComponent({
       style: "display:none", 
       download: "image"
       });
-      
+
       document.body.appendChild(aTag);
       aTag.click();
       document.body.removeChild(aTag);
