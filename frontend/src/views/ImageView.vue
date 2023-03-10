@@ -5,12 +5,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onBeforeMount, onMounted } from 'vue';
 import { useRoute } from "vue-router";
 
 export default defineComponent({
   setup() {
     const url = useRoute().params.id;
+
+    onBeforeMount(() => {
+      const req = new XMLHttpRequest();
+
+      req.open("GET", `http://localhost:8081/api/image/${url}`);
+
+      req.addEventListener("load", () => {
+        console.log(req.response)
+      })
+
+      req.send();
+    })
 
     return {
       url
