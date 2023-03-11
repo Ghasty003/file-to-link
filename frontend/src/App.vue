@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav>
-      <h1>Image to Link Converter.</h1>
+      <h1>Image|Pdf to Link Converter.</h1>
       <div>
         <span>
           <img src="./assets/image-.gif" alt="">
