@@ -9,16 +9,21 @@
       <input v-show="false" type="file" id="file" @change="handleChange" />
 
       <span v-show="error">{{ error }}</span>
+
+      <img class="preview" v-show="showImage" :src="image" alt="">
       
       <button>upload</button>
 
-      <router-link :to="{name: 'about', params: {id: urlId} }">{{ link }}</router-link>
+      <div class="link" v-show="link">
+        <h3>Your upload link:</h3>
+        <router-link :to="{name: 'about', params: {id: urlId} }">{{ link }}</router-link>
+      </div>
     </form>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, ref, computed } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'ImageForm',
@@ -26,6 +31,7 @@ export default defineComponent({
     const link = ref("");
     const image = ref<string>("");
     const error = ref("");
+    const showImage = ref(false);
 
     const host = location.href + "image/";
     const urlId = String(Math.floor(Math.random() * 10000000));
@@ -52,10 +58,15 @@ export default defineComponent({
       const file = event.files[0];
       const base64 = await convertToBase64(file) as string;
       image.value = base64;
+      showImage.value = true;
+      
+      error.value = "";
     }
 
 
     const handleSubmit =  () => {
+      showImage.value = false;
+
       const req = new XMLHttpRequest();
 
       if (image.value === "") {
@@ -83,7 +94,8 @@ export default defineComponent({
       handleChange, 
       link, 
       urlId,
-      error
+      error,
+      showImage
     }
   }
 });
@@ -93,8 +105,8 @@ export default defineComponent({
 <style scoped lang="scss">
 form {
   background: dodgerblue;
-  width: 300px;
-  height: 200px;
+  width: 400px;
+  height: 250px;
   border-radius: 10px;
   position: relative;
   left: 50%;
@@ -112,6 +124,15 @@ form {
   img {
     width: 30px;
     height: 30px;
+
+    &.preview {
+      position: relative;
+      left: 50%;
+      transform: translate(-50%, 20px);
+      object-fit: cover;
+      width: 50px;
+      height: 50px;
+    }
   }
 
   button {
@@ -119,7 +140,7 @@ form {
     border-radius: 10px;
     position: absolute;
     left: 50%;
-    bottom: 40px;
+    bottom: 20px;
     transform: translateX(-50%);
     background: tomato;
     color: white;
@@ -135,6 +156,16 @@ form {
     justify-content: center;
     align-items: center;
     margin-top: 30px;
+  }
+
+  .link {
+    text-align: center;
+    transform: translateY(30px);
+  }
+
+  a {
+    font-size: 14px;
+    text-align: center;
   }
 }
 </style>
