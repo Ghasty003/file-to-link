@@ -86,6 +86,7 @@ export default defineComponent({
     const handleSubmit =  () => {
       showImage.value = false;
       showEmbed.value = false;
+      loading.value = true;
 
       const req = new XMLHttpRequest();
 

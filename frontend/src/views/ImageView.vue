@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p class="loading" v-if="loading"></p>
     <img v-if="image" :src="imageUrl" alt="image">
     <embed v-else :src="imageUrl" type="">
     <button @click="handleDownload">
@@ -25,6 +26,7 @@ export default defineComponent({
     const url = useRoute().params.id;
     const imageUrl = ref("");
     const image = ref(false);
+    const loading = ref(false);
 
     onBeforeMount(() => {
       const req = new XMLHttpRequest();
@@ -42,6 +44,10 @@ export default defineComponent({
         if (imageUrl.value.startsWith("data:image")) {
           image.value = true;
         }
+      });
+
+      req.addEventListener("progress", () => {
+        loading.value = true;
       })
 
       req.send();
@@ -63,7 +69,8 @@ export default defineComponent({
       url,
       imageUrl,
       handleDownload,
-      image
+      image,
+      loading
     }
   },
 })
@@ -115,5 +122,27 @@ img, embed {
 
 svg {
   width: 30px;
+}
+
+.loading {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid white;
+  border-top-color: red;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 30px);
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: .5s spin linear infinite;
+  }
+}
+
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, 30px) rotate(360deg);
+  }
 }
 </style>
