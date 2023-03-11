@@ -32,7 +32,7 @@ export default defineComponent({
       const req = new XMLHttpRequest();
       loading.value = true;
 
-      req.open("GET", `http://localhost:8081/api/image/${url}`);
+      req.open("GET", `https://file-to-link-e6pc.onrender.com/api/image/${url}`);
 
       req.addEventListener("load", () => {
         if (req.status !== 200) {
