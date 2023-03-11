@@ -9,3 +9,8 @@ export default defineComponent({
 })
 </script>
 
+<style lang="scss">
+body {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+</style>
