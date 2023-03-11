@@ -3,14 +3,15 @@
     <form ref="form" @submit.prevent="handleSubmit">
       <label for="file">
         <img src="../assets/addAvatar.png" />
-        <p><span>Drag & Drop or</span> Choose image</p>
+        <p><span>Drag & Drop or</span> Choose image/pdf</p>
       </label>
 
-      <input v-show="false" type="file" id="file" @change="handleChange" />
+      <input accept=".jpg, .jpeg, .png, .pdf"  v-show="false" type="file" id="file" @change="handleChange" />
 
       <span v-show="error">{{ error }}</span>
 
       <img class="preview" v-show="showImage" :src="image" alt="">
+      <embed class="preview" v-show="showEmbed" :src="image" />
       
       <button v-show="image">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -37,6 +38,7 @@ export default defineComponent({
     const image = ref<string>("");
     const error = ref("");
     const showImage = ref(false);
+    const showEmbed = ref(false);
     const form = ref<HTMLFormElement>(null!);
 
     const host = location.href + "image/";
@@ -108,10 +110,21 @@ export default defineComponent({
 
       form.value.addEventListener("drop", async (e) => {
         e.preventDefault();
+        error.value = "";
         
         const base64 = await convertToBase64(e.dataTransfer.files[0]) as string;
+        if (base64.startsWith("data:video")) {
+          error.value = "Only Images & Pdfs are allowed";
+          return;
+        }
+
+        if (base64.startsWith("data:application/pdf")) {
+          showEmbed.value = true;
+          image.value = base64;
+          return;
+        }
         image.value = base64;
-        console.log(image.value);
+        showImage.value = true;
       });
     });
     
@@ -123,7 +136,8 @@ export default defineComponent({
       urlId,
       error,
       showImage,
-      form
+      form,
+      showEmbed
     }
   }
 });
@@ -153,15 +167,17 @@ form {
   img {
     width: 30px;
     height: 30px;
-
-    &.preview {
-      position: relative;
-      left: 50%;
-      transform: translate(-50%, 20px);
-      object-fit: cover;
-      width: 50px;
-      height: 50px;
-    }
+  }
+    
+  .preview {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border: 0;
   }
 
   button {
