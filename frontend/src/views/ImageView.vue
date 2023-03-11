@@ -1,8 +1,7 @@
 <template>
-  <div class="about">
-    <h1>{{ url}}</h1>
+  <div>
     <img :src="imageUrl" alt="image">
-    <button @click="handleDownload">Download image</button>
+    <button @click="handleDownload"><img class="arrow" src="../assets/down-arrow.png" alt=""> Download image</button>
   </div>
 </template>
 
@@ -58,9 +57,34 @@ export default defineComponent({
 </script>
 
 
-<style scoped>
+<style scoped lang="scss">
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 40px;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: crimson;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 4px 8px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  .arrow {
+    width: 30px;
+    height: 30px;
+  }
+}
 img {
-  width: 100px;
-  height: 100px;
+  width: 400px;
+  height: 400px;
 }
 </style>
