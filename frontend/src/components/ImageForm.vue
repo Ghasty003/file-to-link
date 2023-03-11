@@ -3,7 +3,7 @@
     <form ref="form" @submit.prevent="handleSubmit">
       <label for="file">
         <img src="../assets/addAvatar.png" />
-        <p><span>Drag & Drop or</span> Choose image/pdf</p>
+        <p><span v-if="!mobile">Drag & Drop or</span> Choose image/pdf</p>
       </label>
 
       <input accept=".jpg, .jpeg, .png, .pdf"  v-show="false" type="file" id="file" @change="handleChange" />
@@ -40,6 +40,7 @@ export default defineComponent({
     const showImage = ref(false);
     const showEmbed = ref(false);
     const form = ref<HTMLFormElement>(null!);
+    const mobile = ref(false);
 
     const host = location.href + "image/";
     const urlId = String(Math.floor(Math.random() * 10000000));
@@ -110,7 +111,22 @@ export default defineComponent({
       e.preventDefault();
     });
 
+    window.addEventListener("resize", () => {
+      if (window.innerWidth <= 700) {
+        mobile.value = true;
+        return;
+      }
+
+      mobile.value = false;
+    });
+
     onMounted(() => {
+
+      if (window.innerWidth <= 700) {
+        mobile.value = true;
+      }
+
+
       form.value.addEventListener("dragover", (e) => {
         e.preventDefault();
       });
@@ -145,7 +161,8 @@ export default defineComponent({
       error,
       showImage,
       form,
-      showEmbed
+      showEmbed,
+      mobile
     }
   }
 });
@@ -163,6 +180,10 @@ form {
   transform: translate(-50%, 100px);
   color: white;
   border: 3px dashed white;
+
+  @media (max-width: 430px) {
+    width: 320px;
+  }
 
   label {
     display: flex;
