@@ -21,6 +21,11 @@ class Server {
         this.app = (0, express_1.default)();
         this.listen();
     }
+    test() {
+        this.app.get("/test", (_req, res) => {
+            res.status(200).json("Hello world!");
+        });
+    }
     useMiddlewares() {
         this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.json({ limit: "50mb" }));
@@ -35,5 +40,6 @@ class Server {
     }
 }
 const server = new Server();
+server.test();
 server.useMiddlewares();
 server.initializeRoutes();

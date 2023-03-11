@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import mysql from "mysql2";
 import dotenv from "dotenv";
@@ -22,6 +22,12 @@ class Server {
         this.listen();
     }
 
+    public test() {
+        this.app.get("/test", (_req: Request, res: Response) => {
+            res.status(200).json("Hello world!");
+        })
+    }
+
     public useMiddlewares() {
         this.app.use(cors());
         this.app.use(express.json({ limit: "50mb" }))
@@ -41,5 +47,6 @@ class Server {
 
 const server = new Server();
 
+server.test();
 server.useMiddlewares();
 server.initializeRoutes();
