@@ -1,7 +1,13 @@
 <template>
   <div>
     <img :src="imageUrl" alt="image">
-    <button @click="handleDownload"><img class="arrow" src="../assets/down-arrow.png" alt=""> Download image</button>
+    <button @click="handleDownload">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l3 3m0 0l3-3m-3 3v-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+
+      Download image
+    </button>
   </div>
 </template>
 
@@ -76,6 +82,12 @@ div {
     padding: 4px 8px;
     cursor: pointer;
     margin-top: 20px;
+    box-shadow: 1px 1px 1px rgb(36, 35, 35);
+    transition: all 1s;
+
+    &:active {
+      transform: scale(.8);
+    }
   }
 
   .arrow {
@@ -86,5 +98,9 @@ div {
 img {
   width: 400px;
   height: 400px;
+}
+
+svg {
+  width: 30px;
 }
 </style>
