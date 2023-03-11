@@ -8,10 +8,14 @@
 
 <script lang="ts">
 import { defineComponent, onBeforeMount, ref } from 'vue';
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 export default defineComponent({
   setup() {
+    const store = useStore();
+    const router = useRouter();
+
     const url = useRoute().params.id;
     const imageUrl = ref("");
 
@@ -21,7 +25,12 @@ export default defineComponent({
       req.open("GET", `http://localhost:8081/api/image/${url}`);
 
       req.addEventListener("load", () => {
-        imageUrl.value = JSON.parse(req.response)[0].image
+        if (req.status !== 200) {
+          router.push("/");
+        }
+
+        // store.commit("setLinkValidity", true);
+        imageUrl.value = JSON.parse(req.response)[0].image;
       })
 
       req.send();
