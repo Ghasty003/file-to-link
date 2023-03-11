@@ -106,6 +106,11 @@ div {
 img, embed {
   width: 400px;
   height: 400px;
+
+  @media (max-width: 400px) {
+    width: 320px;
+    height: 320px;
+  }
 }
 
 svg {
