@@ -95,7 +95,7 @@ export default defineComponent({
         return;
       }
       
-      req.open("POST", "http://localhost:8081/api/image");
+      req.open("POST", "https://file-to-link-e6pc.onrender.com/api/image");
       req.setRequestHeader("Content-Type", "application/json");
       req.send(JSON.stringify({ image: image.value, urlId }));
 
