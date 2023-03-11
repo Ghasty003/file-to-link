@@ -10,6 +10,8 @@
 
       <span v-show="error">{{ error }}</span>
 
+      <p class="loading" v-if="loading"></p>
+
       <img class="preview" v-show="showImage" :src="image" alt="">
       <embed class="preview" v-show="showEmbed" :src="image" />
       
@@ -41,6 +43,8 @@ export default defineComponent({
     const showEmbed = ref(false);
     const form = ref<HTMLFormElement>(null!);
     const mobile = ref(false);
+    const loading = ref(false);
+
 
     const host = location.href + "image/";
     const urlId = String(Math.floor(Math.random() * 10000000));
@@ -96,9 +100,11 @@ export default defineComponent({
 
       req.addEventListener("load", () => {
         link.value = url;
+        loading.value = false;
       });
 
       req.addEventListener("progress", (e) => {
+        loading.value = true;
         // console.log((e.loaded / e.total) * 100)
       })
     }
@@ -162,7 +168,8 @@ export default defineComponent({
       showImage,
       form,
       showEmbed,
-      mobile
+      mobile,
+      loading
     }
   }
 });
@@ -253,6 +260,24 @@ form {
   a {
     font-size: 14px;
     text-align: center;
+  }
+}
+
+.loading {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 5px solid white;
+  border-top-color: red;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 30px);
+  animation: .5s spin linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, 30px) rotate(360deg);
   }
 }
 </style>
