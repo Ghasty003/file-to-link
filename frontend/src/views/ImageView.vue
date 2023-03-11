@@ -30,6 +30,7 @@ export default defineComponent({
 
     onBeforeMount(() => {
       const req = new XMLHttpRequest();
+      loading.value = true;
 
       req.open("GET", `http://localhost:8081/api/image/${url}`);
 
@@ -38,6 +39,8 @@ export default defineComponent({
           router.push("/");
           return;
         }
+
+        loading.value = false;
 
         // store.commit("setLinkValidity", true);
         imageUrl.value = JSON.parse(req.response)[0].image;
@@ -131,8 +134,7 @@ svg {
   border: 5px solid white;
   border-top-color: red;
   position: relative;
-  left: 50%;
-  transform: translate(-50%, 30px);
+  transform: translateY(30px);
 
   @media (prefers-reduced-motion: no-preference) {
     animation: .5s spin linear infinite;
@@ -142,7 +144,7 @@ svg {
 
 @keyframes spin {
   to {
-    transform: translate(-50%, 30px) rotate(360deg);
+    transform: translateY(30px) rotate(360deg);
   }
 }
 </style>
