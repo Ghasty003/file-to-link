@@ -272,8 +272,12 @@ form {
   position: relative;
   left: 50%;
   transform: translate(-50%, 30px);
-  animation: .5s spin linear infinite;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: .5s spin linear infinite;
+  }
 }
+
 
 @keyframes spin {
   to {
