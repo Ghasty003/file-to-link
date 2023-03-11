@@ -74,6 +74,7 @@ export default defineComponent({
 
     const handleSubmit =  () => {
       showImage.value = false;
+      showEmbed.value = false;
 
       const req = new XMLHttpRequest();
 
@@ -118,12 +119,13 @@ export default defineComponent({
           return;
         }
 
+        image.value = base64;
+
         if (base64.startsWith("data:application/pdf")) {
           showEmbed.value = true;
-          image.value = base64;
           return;
         }
-        image.value = base64;
+
         showImage.value = true;
       });
     });
