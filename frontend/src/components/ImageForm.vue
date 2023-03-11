@@ -1,9 +1,9 @@
 <template>
   <div>
-    <form @submit.prevent="handleSubmit">
+    <form ref="form" @submit.prevent="handleSubmit">
       <label for="file">
         <img src="../assets/addAvatar.png" />
-        <p>Drag & Drop or Choose image</p>
+        <p><span>Drag & Drop or</span> Choose image</p>
       </label>
 
       <input v-show="false" type="file" id="file" @change="handleChange" />
@@ -12,7 +12,7 @@
 
       <img class="preview" v-show="showImage" :src="image" alt="">
       
-      <button>
+      <button v-show="image">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 004.5 9.75v7.5a2.25 2.25 0 002.25 2.25h7.5a2.25 2.25 0 002.25-2.25v-7.5a2.25 2.25 0 00-2.25-2.25h-.75m0-3l-3-3m0 0l-3 3m3-3v11.25m6-2.25h.75a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25h-7.5a2.25 2.25 0 01-2.25-2.25v-.75" />
         </svg>
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
   name: 'ImageForm',
@@ -37,6 +37,7 @@ export default defineComponent({
     const image = ref<string>("");
     const error = ref("");
     const showImage = ref(false);
+    const form = ref<HTMLFormElement>(null!);
 
     const host = location.href + "image/";
     const urlId = String(Math.floor(Math.random() * 10000000));
@@ -92,7 +93,28 @@ export default defineComponent({
       })
     }
 
+    document.addEventListener("dragover", (e) => {
+      e.preventDefault();
+    });
 
+    document.addEventListener("drop", (e) => {
+      e.preventDefault();
+    });
+
+    onMounted(() => {
+      form.value.addEventListener("dragover", (e) => {
+        e.preventDefault();
+      });
+
+      form.value.addEventListener("drop", async (e) => {
+        e.preventDefault();
+        
+        const base64 = await convertToBase64(e.dataTransfer.files[0]) as string;
+        image.value = base64;
+        console.log(image.value);
+      });
+    });
+    
     return {
       image, 
       handleSubmit, 
@@ -100,7 +122,8 @@ export default defineComponent({
       link, 
       urlId,
       error,
-      showImage
+      showImage,
+      form
     }
   }
 });
@@ -117,7 +140,7 @@ form {
   left: 50%;
   transform: translate(-50%, 100px);
   color: white;
-  border: 1px dashed white;
+  border: 3px dashed white;
 
   label {
     display: flex;
@@ -168,7 +191,7 @@ form {
     }
   }
 
-  span {
+  > span {
     color: crimson;
     text-align: center;
     display: flex;
