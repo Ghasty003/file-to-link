@@ -1,5 +1,10 @@
 <template>
-  <router-view />
+  <div>
+    <nav>
+      <h1>Image to Link Converter.</h1>
+    </nav>
+    <router-view />
+  </div>
 </template>
 
 <script lang="ts">
