@@ -7,6 +7,8 @@
       </label>
 
       <input v-show="false" type="file" id="file" @change="handleChange" />
+
+      <span v-show="error">{{ error }}</span>
       
       <button>upload</button>
 
@@ -16,13 +18,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUpdated, ref } from 'vue';
+import { defineComponent, watch, ref, computed } from 'vue';
 
 export default defineComponent({
   name: 'ImageForm',
   setup() {
     const link = ref("");
     const image = ref<string>("");
+    const error = ref("");
+
     const host = location.href + "image/";
     const urlId = String(Math.floor(Math.random() * 10000000));
     const url = host + urlId;
@@ -50,11 +54,15 @@ export default defineComponent({
       image.value = base64;
     }
 
-    
 
     const handleSubmit =  () => {
       const req = new XMLHttpRequest();
 
+      if (image.value === "") {
+        error.value = "Upload an image.";
+        return;
+      }
+      
       req.open("POST", "http://localhost:8081/api/image");
       req.setRequestHeader("Content-Type", "application/json");
       req.send(JSON.stringify({ image: image.value, urlId }));
@@ -74,7 +82,8 @@ export default defineComponent({
       handleSubmit, 
       handleChange, 
       link, 
-      urlId
+      urlId,
+      error
     }
   }
 });
@@ -117,6 +126,15 @@ form {
     text-transform: capitalize;
     cursor: pointer;
     padding: 10px 20px
+  }
+
+  span {
+    color: crimson;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
   }
 }
 </style>
