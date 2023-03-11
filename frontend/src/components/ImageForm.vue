@@ -66,7 +66,13 @@ export default defineComponent({
       const file = event.files[0];
       const base64 = await convertToBase64(file) as string;
       image.value = base64;
-      showImage.value = true;
+
+      if (base64.startsWith("data:image")) {
+        showImage.value = true;
+        return;
+      }
+
+      showEmbed.value = true;
       
       error.value = "";
     }
