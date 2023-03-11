@@ -3,7 +3,7 @@
     <form @submit.prevent="handleSubmit">
       <label for="file">
         <img src="../assets/addAvatar.png" />
-        <p>Choose image</p>
+        <p>Drag & Drop or Choose image</p>
       </label>
 
       <input v-show="false" type="file" id="file" @change="handleChange" />
@@ -117,6 +117,7 @@ form {
   left: 50%;
   transform: translate(-50%, 100px);
   color: white;
+  border: 1px dashed white;
 
   label {
     display: flex;
