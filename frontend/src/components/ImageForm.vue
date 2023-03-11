@@ -5,10 +5,13 @@
         <img src="../assets/addAvatar.png" />
         <p>Choose image</p>
       </label>
+
       <input v-show="false" type="file" id="file" @change="handleChange" />
+      
       <button>upload</button>
+
+      <router-link :to="{name: 'about', params: {id: urlId} }">{{ link }}</router-link>
     </form>
-    <router-link :to="{name: 'about', params: {id: urlId} }">{{ link }}</router-link>
   </div>
 </template>
 
@@ -80,14 +83,40 @@ export default defineComponent({
 
 <style scoped lang="scss">
 form {
+  background: dodgerblue;
+  width: 300px;
+  height: 200px;
+  border-radius: 10px;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 100px);
+  color: white;
+
   label {
     display: flex;
     justify-content: center;
     align-items: center;
+    transform: translateY(20px);
+    cursor: pointer;
   }
+
   img {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
+  }
+
+  button {
+    border: none;
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+    transform: translateX(-50%);
+    background: tomato;
+    color: white;
+    text-transform: capitalize;
+    cursor: pointer;
+    padding: 10px 20px
   }
 }
 </style>
