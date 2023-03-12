@@ -141,8 +141,10 @@ export default defineComponent({
       form.value.addEventListener("drop", async (e) => {
         e.preventDefault();
         error.value = "";
+
+        const file = e.dataTransfer?.files[0];
         
-        const base64 = await convertToBase64(e.dataTransfer.files[0]) as string;
+        const base64 = await convertToBase64(file as Blob) as string;
         if (base64.startsWith("data:video")) {
           error.value = "Only Images & Pdfs are allowed";
           return;
