@@ -1,14 +1,16 @@
 <template>
   <div>
     <nav>
-      <h1>Image|Pdf to Link Converter.</h1>
-      <div>
-        <span>
-          <img src="./assets/image-.gif" alt="">
-          <img src="./assets/export.gif" alt="">
-          <img src="./assets/file.gif" alt="">
-        </span>
-      </div>
+      <router-link to="/">
+        <h1>Image|Pdf to Link Converter.</h1>
+        <div>
+          <span>
+            <img src="./assets/image-.gif" alt="">
+            <img src="./assets/export.gif" alt="">
+            <img src="./assets/file.gif" alt="">
+          </span>
+        </div>
+      </router-link>
     </nav>
     <router-view />
   </div>
@@ -22,9 +24,17 @@ body {
 }
 </style>
 
-<style scoped>
+<style scoped lang="scss">
 nav {
   margin-left: 30px;
+}
+
+a {
+  text-decoration: none;
+  
+  &:active {
+    color: initial;
+  }
 }
 
 nav div {
