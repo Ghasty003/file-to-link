@@ -60,7 +60,7 @@ export default defineComponent({
       const aTag = Object.assign(document.createElement("a"), {
       href: imageUrl.value, 
       style: "display:none", 
-      download: "image"
+      download: "download"
       });
 
       document.body.appendChild(aTag);
