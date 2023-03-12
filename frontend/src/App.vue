@@ -15,7 +15,7 @@
 </template>
 
 
-<style>
+<style lang="scss">
 body {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   background: rgba(222, 214, 214, 0.8);

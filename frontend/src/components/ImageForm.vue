@@ -179,7 +179,7 @@ export default defineComponent({
 </script>
 
 
-<style scoped>
+<style scoped lang="scss">
 form {
   background: dodgerblue;
   width: 400px;
@@ -190,78 +190,81 @@ form {
   transform: translate(-50%, 100px);
   color: white;
   border: 3px dashed white;
-}
 
-label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: translateY(20px);
-  cursor: pointer;
-}
+  @media (max-width: 430px) {
+    width: 320px;
+  }
 
-img {
-  width: 30px;
-  height: 30px;
-}
+  label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(20px);
+    cursor: pointer;
+  }
+
+  img {
+    width: 30px;
+    height: 30px;
+  }
     
-.preview {
-  position: relative;
-  left: 50%;
-  transform: translate(-50%, 20px);
-  object-fit: cover;
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  border: 0;
-}
+  .preview {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border: 0;
+  }
 
-button {
-  border: none;
-  border-radius: 10px;
-  position: absolute;
-  left: 50%;
-  bottom: 20px;
-  transform: translateX(-50%);
-  background: tomato;
-  color: white;
-  text-transform: capitalize;
-  cursor: pointer;
-  padding: 5px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 1px 1px 1px rgb(59, 58, 58);
-  transition: all 1s;
-}
+  button {
+    border: none;
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    background: tomato;
+    color: white;
+    text-transform: capitalize;
+    cursor: pointer;
+    padding: 5px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 1px 1px rgb(59, 58, 58);
+    transition: all 1s;
 
-button:active {
-  transform: translateX(-50%) scale(.8);
-}
+    &:active {
+      transform: translateX(-50%) scale(.8);
+    }
 
-svg {
-  width: 24px;
-}
+    svg {
+      width: 24px;
+    }
+  }
 
-button > span {
-  color: crimson;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-}
+  > span {
+    color: crimson;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  }
 
-form .link {
-  text-align: center;
-  transform: translateY(30px);
-}
+  .link {
+    text-align: center;
+    transform: translateY(30px);
+  }
 
-form a {
-  font-size: 14px;
-  text-align: center;
+  a {
+    font-size: 14px;
+    text-align: center;
+  }
 }
-
 
 .loading {
   width: 20px;
@@ -272,23 +275,16 @@ form a {
   position: relative;
   left: 50%;
   transform: translate(-50%, 30px);
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .loading {
+  @media (prefers-reduced-motion: no-preference) {
     animation: .5s spin linear infinite;
   }
 }
 
+
 @keyframes spin {
   to {
     transform: translate(-50%, 30px) rotate(360deg);
-  }
-}
-
-@media (max-width: 430px) {
-  form {
-    width: 320px;
   }
 }
 </style>

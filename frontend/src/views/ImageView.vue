@@ -80,7 +80,7 @@ export default defineComponent({
 </script>
 
 
-<style scoped>
+<style scoped lang="scss">
 div {
   display: flex;
   justify-content: center;
@@ -88,40 +88,36 @@ div {
   flex-direction: column;
   margin-top: 40px;
 
-}
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: crimson;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 4px 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: 1px 1px 1px rgb(36, 35, 35);
+    transition: all 1s;
 
-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: crimson;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  padding: 4px 8px;
-  cursor: pointer;
-  margin-top: 20px;
-  box-shadow: 1px 1px 1px rgb(36, 35, 35);
-  transition: all 1s;
-}
+    &:active {
+      transform: scale(.8);
+    }
+  }
 
-button:active {
-  transform: scale(.8);
+  .arrow {
+    width: 30px;
+    height: 30px;
+  }
 }
-
-.arrow {
-  width: 30px;
-  height: 30px;
-}
-
 
 img, embed {
   width: 400px;
   height: 400px;
-}
 
-@media (max-width: 400px) {
-  img, embed {
+  @media (max-width: 400px) {
     width: 320px;
     height: 320px;
   }
@@ -139,13 +135,12 @@ svg {
   border-top-color: red;
   position: relative;
   transform: translateY(30px);
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .loading {
+  @media (prefers-reduced-motion: no-preference) {
     animation: .5s spin linear infinite;
   }
 }
+
 
 @keyframes spin {
   to {
