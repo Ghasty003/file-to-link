@@ -31,10 +31,7 @@ nav {
 
 a {
   text-decoration: none;
-  
-  &:active {
-    color: initial;
-  }
+  color: black;
 }
 
 nav div {
