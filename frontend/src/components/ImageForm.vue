@@ -13,7 +13,7 @@
       <p class="loading" v-if="loading"></p>
 
       <img class="preview" v-show="showImage" :src="image" alt="">
-      <embed class="preview" v-show="showEmbed" :src="image" />
+      <iframe class="preview" v-show="showEmbed" :src="image" />
       
       <button v-show="image">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
