@@ -10,11 +10,31 @@
             <img src="./assets/file.gif" alt="">
           </span>
         </div>
+
+        <main v-show="offline">
+          You're offline. Kindly check your internet connection.
+        </main>
+
       </router-link>
     </nav>
     <router-view />
   </div>
 </template>
+
+<script setup lang="ts">
+import { onMounted, ref } from "vue";
+
+const offline = ref(false);
+
+onMounted(() => {
+  if (!navigator.onLine) {
+    offline.value = true;
+  }
+  
+});
+
+</script>
+
 
 
 <style lang="scss">
@@ -32,6 +52,17 @@ nav {
 a {
   text-decoration: none;
   color: black;
+}
+
+main {
+  background: dodgerblue;
+  color: white;
+  width: fit-content;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 20px);
 }
 
 nav div {
