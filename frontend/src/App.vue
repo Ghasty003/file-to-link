@@ -22,16 +22,18 @@
 </template>
 
 <script setup lang="ts">
+import { setInterval } from "timers";
 import { onMounted, ref } from "vue";
 
 const offline = ref(false);
 
-onMounted(() => {
+function checkIsOnline() {
   if (!navigator.onLine) {
     offline.value = true;
   }
-  
-});
+  setTimeout(checkIsOnline, 1000);
+}
+setTimeout(checkIsOnline, 1000);
 
 </script>
 
