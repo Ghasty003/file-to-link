@@ -6,7 +6,7 @@
         <p><span v-if="!mobile">Drag & Drop or</span> Choose image/pdf</p>
       </label>
 
-      <input accept=".jpg, .jpeg, .png, .pdf"  v-show="false" type="file" id="file" @change="handleChange" />
+      <input accept=".jpg, .jpeg, .png, .pdf, .gif"  v-show="false" type="file" id="file" @change="handleChange" />
 
       <span v-show="error">{{ error }}</span>
 
@@ -47,7 +47,7 @@ export default defineComponent({
 
 
     const host = location.href + "image/";
-    const urlId = String(Math.floor(Math.random() * 10000000));
+    const urlId = Date.now();
     const url = host + urlId;
 
     const convertToBase64 = (file: Blob) => {
@@ -145,8 +145,8 @@ export default defineComponent({
         const file = e.dataTransfer?.files[0];
         
         const base64 = await convertToBase64(file as Blob) as string;
-        if (base64.startsWith("data:video")) {
-          error.value = "Only Images & Pdfs are allowed";
+        if (!base64.startsWith("data:image") || !base64.startsWith("data:application/pdf")) {
+          error.value = "Only Images/Gif & Pdfs are allowed";
           return;
         }
 
