@@ -30,7 +30,11 @@ const offline = ref(false);
 function checkIsOnline() {
   if (!navigator.onLine) {
     offline.value = true;
+    return;
   }
+
+  offline.value = false;
+  
   setTimeout(checkIsOnline, 1000);
 }
 setTimeout(checkIsOnline, 1000);
